@@ -1,0 +1,33 @@
+body {
+  background: url(https://www.g20.org/en/news/world-economic-forum-report-states-that-disinformation-and-extreme-weather-are-the-main-threats-to-the-world-today/@@images/image-1920-822aeacbda6c9a11aa544a8acb8bad22.jpeg);
+  height: 100vh; 
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;
+  flex-direction: column;
+}
+
+.weather-box{
+  border: 3px solid white;
+  padding: 50px;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.buttoncolor{
+  color: black;
+  background-color: black;
+}
+
+/* justify-content: center; 가로 가운데 정렬 */
+/* align-items 새로 가운데 정렬 */
+/* flex는 모든 css를 가로로 바꿔버림 */
+/* flex-direction: column;그래서 이렇게 새로로 정렬하게 바꿈 방향을 */

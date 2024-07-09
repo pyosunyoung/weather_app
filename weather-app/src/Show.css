@@ -1,0 +1,10 @@
+.App {
+  background: url(https://www.g20.org/en/news/world-economic-forum-report-states-that-disinformation-and-extreme-weather-are-the-main-threats-to-the-world-today/@@images/image-1920-822aeacbda6c9a11aa544a8acb8bad22.jpeg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
