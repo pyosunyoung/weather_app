@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './CardCarousel.css';
-import IMG from './img/korea.png'
 
 const CardCarousel = ({ currentLocation, paris, tokyo, seoul, newYork, selectedCity, handleCityChange }) => {
-  console.log(paris);
-  console.log(currentLocation);
   const [currentCard, setCurrentCard] = useState(0);
   const cities = ['current', 'paris', 'tokyo', 'seoul', 'new york'];
-  const icon = currentLocation.weather[0].icon
-  const cards = [
-    { id: 0, content: currentLocation ? `${currentLocation.name}: ${currentLocation.main.temp}°C ${currentLocation.main.feels_like}
-    ${currentLocation.main.humidity}
-    ${currentLocation.main.temp_max}
-    ${currentLocation.main.temp_min}
-    ${currentLocation.wind.speed}
-    
-    ` : 'Loading...' },
-    { id: 1, content: paris ? `${paris.name}: ${paris.main.temp}°C` : 'Loading...' },
-    { id: 2, content: tokyo ? `${tokyo.name}: ${tokyo.main.temp}°C` : 'Loading...' },
-    { id: 3, content: seoul ? `${seoul.name}: ${seoul.main.temp}°C` : 'Loading...' },
-    { id: 4, content: newYork ? `${newYork.name}: ${newYork.main.temp}°C` : 'Loading...' }
+  const cards = [ // 이부분 변경
+    { id: 0, content: currentLocation ? `${currentLocation.name}: ${currentLocation.main.temp}°C` : 'Loading...' },
+    { id: 1, content: paris ? `${paris.name}: ${paris.main.temp}°C` : 'Paris' },
+    { id: 2, content: tokyo ? `${tokyo.name}: ${tokyo.main.temp}°C` : 'Tokyo' },
+    { id: 3, content: seoul ? `${seoul.name}: ${seoul.main.temp}°C` : 'Seoul' },
+    { id: 4, content: newYork ? `${newYork.name}: ${newYork.main.temp}°C` : 'New York' }
   ];
 
   useEffect(() => {
-    const cityIndex = cities.indexOf(selectedCity);
-    setCurrentCard(cityIndex !== -1 ? cityIndex : 0);
+    const cityIndex = cities.indexOf(selectedCity || 'current');
+    setCurrentCard(cityIndex === -1 ? 0 : cityIndex);
   }, [selectedCity, currentLocation, paris, tokyo, seoul, newYork]);
 
   const handleNext = () => {
@@ -47,12 +37,10 @@ const CardCarousel = ({ currentLocation, paris, tokyo, seoul, newYork, selectedC
             key={card.id}
             className={`carousel-card ${index === currentCard ? 'active' : ''}`}
             style={{
-              transform: `rotateY(${index * 72}deg) translateZ(250px)`
+              transform: `rotateY(${(index - currentCard) * 72}deg) translateZ(250px)`
             }}
           >
-            <img className="img-fluid" src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
             {card.content}
-            <img src={IMG}></img>
           </div>
         ))}
       </div>

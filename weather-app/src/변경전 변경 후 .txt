@@ -1,0 +1,91 @@
+변경전 변경 후 
+
+수정된 주요 부분과 그 설명을 아래에 정리했습니다.
+
+App 컴포넌트
+변경 전
+javascript
+코드 복사
+  useEffect(() => {
+    if (city === null) {
+      getCurrentLocation();
+    } else {
+      getWeatherByCity(city).then(data => {
+        if (city === 'paris') {
+          setParis(data);
+        } else if (city === 'tokyo') {
+          setTokyo(data);
+        } else if (city === 'seoul') {
+          setSeoul(data);
+        } else if (city === 'new york') {
+          setNewYork(data);
+        }
+      });
+    }
+  }, [city]);
+변경 후
+javascript
+코드 복사
+  useEffect(() => {
+    if (city === 'current') {
+      getCurrentLocation();
+    } else {
+      getWeatherByCity(city).then(data => {
+        if (city === 'paris') {
+          setParis(data);
+        } else if (city === 'tokyo') {
+          setTokyo(data);
+        } else if (city === 'seoul') {
+          setSeoul(data);
+        } else if (city === 'new york') {
+          setNewYork(data);
+        }
+      });
+    }
+  }, [city]);
+city === null를 city === 'current'로 변경: 상태를 명확히 정의하여 현재 위치와 도시를 구분합니다.
+변경 전
+javascript
+코드 복사
+  const handleCityChange = (city) => {
+    if (city === "current") {
+      setCity(null);
+    } else {
+      setCity(city);
+    }
+  }
+변경 후
+javascript
+코드 복사
+  const handleCityChange = (city) => {
+    setCity(city);
+  }
+setCity(null)를 setCity('current')로 변경: 현재 위치로 전환할 때 null 대신 'current'를 사용합니다.
+중복된 코드 제거: if-else문을 단순화하여 setCity(city)만 사용합니다.
+CardCarousel 컴포넌트
+변경 전
+javascript
+코드 복사
+  const cards = [
+    { id: 0, content: currentLocation ? `${currentLocation.name}: ${currentLocation.main.temp}°C` : 'Loading...' },
+    { id: 1, content: paris ? `${paris.name}: ${paris.main.temp}°C` : 'Paris' },
+    { id: 2, content: tokyo ? `${tokyo.name}: ${tokyo.main.temp}°C` : 'Tokyo' },
+    { id: 3, content: seoul ? `${seoul.name}: ${seoul.main.temp}°C` : 'Seoul' },
+    { id: 4, content: newYork ? `${newYork.name}: ${newYork.main.temp}°C` : 'New York' }
+  ];
+변경 후
+javascript
+코드 복사
+  const cards = [
+    { id: 0, content: currentLocation ? `${currentLocation.name}: ${currentLocation.main.temp}°C` : 'Loading...' },
+    { id: 1, content: paris ? `${paris.name}: ${paris.main.temp}°C` : 'Loading...' },
+    { id: 2, content: tokyo ? `${tokyo.name}: ${tokyo.main.temp}°C` : 'Loading...' },
+    { id: 3, content: seoul ? `${seoul.name}: ${seoul.main.temp}°C` : 'Loading...' },
+    { id: 4, content: newYork ? `${newYork.name}: ${newYork.main.temp}°C` : 'Loading...' }
+  ];
+각 도시의 기본 내용을 'Loading...'로 설정: 데이터를 가져오는 동안에도 사용자에게 명확히 알립니다.
+변경 요약
+상태 관리: city 상태를 'current'와 특정 도시 이름으로 명확히 구분.
+useEffect 업데이트: city 상태에 따라 적절한 API 호출 (getCurrentLocation vs getWeatherByCity).
+간소화된 handleCityChange: 중복된 조건문 제거.
+명확한 기본값: CardCarousel에서 각 카드의 기본 내용을 'Loading...'로 설정하여 데이터 로딩 상태를 명확히 표시.
