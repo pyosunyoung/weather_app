@@ -7,7 +7,7 @@ import Header from './Header';
 function Show() {
   return (
     <div>
-      <Header/>
+      
       <App/>
     </div>
   );

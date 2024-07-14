@@ -2,7 +2,7 @@
 
 * {
   font-family: 'Hahmlet', serif;
-  font-weight: 900;
+  /* font-weight: ; */
   user-select: none;
   color: white;
 }
@@ -11,16 +11,13 @@
   position: relative;
 }
 
-
-
 .carousel-container {
   position: relative;
   width: 300px;
-  height: 520px;
+  height: 560px;
   perspective: 1100px;
   margin-bottom: 70px;
   top: 50px;
-  
 }
 
 .carousel {
@@ -30,7 +27,6 @@
   transform-style: preserve-3d;
   transform: translateZ(0px);
   transition: transform 1s;
-  
 }
 
 .carousel-card {
@@ -49,7 +45,6 @@
   transition: transform 1s;
   border-radius: 10%;
   text-align: center;
-  
 }
 
 .carousel-button {
@@ -61,6 +56,11 @@
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
+  color: black;
+}
+
+.carousel-button span {
+  color: black; /* span 텍스트 색상 변경 */
 }
 
 .prev {
@@ -79,13 +79,17 @@
 }
 
 .location-icon {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-size: small;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 .location-icon img {
-  width: 50px;
+  width: 30px;
   margin-right: 10px;
 }
 
@@ -93,8 +97,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
-  margin-top: 10px;
+  font-size: 33px; /* 글씨 크기 증가 */
+  font-weight: 1000; /* 글씨 두께 증가 */
+  margin-top: -5px;
+  margin-bottom: -5px;
 }
 
 .temperature .feels-like {
@@ -103,21 +109,39 @@
 }
 
 .weather-icon img {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
 
 .weather-condition {
-  margin-top: 10px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
+.date {
+  margin-top: -5px;
+  margin-bottom: -5px;
+  font-size: small;
 }
 
 .additional-info {
+  background-color: rgba(128, 128, 128, 0.5); /* 회색 투명 배경 */
+  border-radius: 10px; /* 테두리 반경 */
+  padding: 5px;
   display: flex;
   justify-content: space-around;
   font-size: 14px;
-  margin-top: 10px;
+  
 }
 
 .info-item {
+  flex: 1;
   text-align: center;
+  padding: 5px;
+  
+  margin-left: 3px;
+}
+
+.info-item:last-child {
+  border-right: none; /* 마지막 파트는 구분선을 제거 */
 }

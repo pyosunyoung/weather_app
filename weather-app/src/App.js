@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ClipLoader from 'react-spinners/ClipLoader';
 import CardCarousel from './CardCarousel';
 import WeatherButton from './component/WeatherButton';
+import Header from './Header';
 
 function App() {
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -15,7 +16,7 @@ function App() {
   const [apiError, setAPIError] = useState("");
   const [city, setCity] = useState('current');
   const [initialLoad, setInitialLoad] = useState(true);
-  const cities = ['paris', 'tokyo', 'seoul', 'new york'];
+  const cities = ['current', 'paris', 'tokyo', 'seoul', 'new york'];
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -36,14 +37,6 @@ function App() {
       setLoading(false);
       setInitialLoad(false);
     };
-
-    // const getCurrentLocation = () => {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     let lat = position.coords.latitude;
-    //     let lon = position.coords.longitude;
-    //     getWeatherByCurrentLocation(lat, lon);
-    //   });
-    // };
 
     const getWeatherByCurrentLocation = async (lat, lon) => {
       try {
@@ -74,11 +67,16 @@ function App() {
   }, [city]);
 
   const handleCityChange = (city) => {
-    setCity(city);
+    if (cities.includes(city.toLowerCase())) {
+      setCity(city);
+    } else {
+      alert('찾을 수 없는 나라입니다.');
+    }
   };
 
   return (
     <div>
+      <Header handleCityChange={handleCityChange} />
       {loading && initialLoad ? (
         <div className="container">
           <ClipLoader

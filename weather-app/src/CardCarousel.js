@@ -4,7 +4,6 @@ import KoreaIMG from './img/korea.png';
 import FranceIMG from './img/france.png';
 import JapanIMG from './img/japan.png';
 import USAIMG from './img/usa.png';
-
 import CustomDate from './CustomDate'; // CustomDate 컴포넌트 임포트
 
 const CardCarousel = ({ currentLocation, paris, tokyo, seoul, newYork, selectedCity, handleCityChange }) => {
@@ -33,39 +32,48 @@ const CardCarousel = ({ currentLocation, paris, tokyo, seoul, newYork, selectedC
     }
   };
 
+  const getBackgroundColor = (temp) => {
+    if (temp >= 27) {
+      return 'linear-gradient(to bottom, #FFDD44, #FF4E50)';
+    } else if (temp <= 24) {
+      return 'linear-gradient(to bottom, #4A69BD, #9B4F96)';
+    } else {
+      return 'linear-gradient(to bottom, #12adfd, #1069f3)';
+    }
+  };
+
   const renderCardContent = (location, cityName) => {
     if (!location) return 'Loading...';
     
     const icon = location.weather[0].icon;
     return (
-      
       <div className="card-content">
-        
         <h2>🌍{location.name}</h2>
         <hr color="white" />
         <div className="location-icon">
           <img src={getCountryImage(cityName)} alt={`${cityName} flag`} />
           <span>{getCountryName(cityName)}</span>
         </div>
-        <div className="weather-icon">
-          <img className="img-fluid" src={`http://openweathermap.org/img/wn/${icon}@4x.png`} alt="Weather icon" />
-        </div>
-        <div className="temperature">
-          <p className="temp"> Temp {location.main.temp}°C</p>
-          <p className="feels-like">Feels_like {location.main.feels_like}°C</p>
-        </div>
-        <div className="weather-condition">
-          <p>{location.weather[0].main}</p>
+        <div className="weather-info">
+          <div className="weather-icon">
+            <img className="img-fluid" src={`http://openweathermap.org/img/wn/${icon}@4x.png`} alt="Weather icon" />
+          </div>
+          <div className="temperature">
+            <p className="temp">{location.main.temp}°C</p>
+          </div>
+          <div className="weather-condition">
+            <p>{location.weather[0].main}</p>
+          </div>
         </div>
         <div className="date">
           <CustomDate />
-        </div> 
+        </div>
         <hr color="white" />
         <div className="additional-info">
-        <div className="info-item">
+          <div className="info-item">
             🌡<br />
-            최저:🔻 {location.main.temp_min}°C<br />
-            최고:🔺 {location.main.temp_max}°C
+            🔻{location.main.temp_min}°C<br />
+            🔺{location.main.temp_max}°C
           </div>
           <div className="info-item">
             💧<br />
@@ -108,25 +116,23 @@ const CardCarousel = ({ currentLocation, paris, tokyo, seoul, newYork, selectedC
   };
 
   return (
-    
     <div className="carousel-container">
-      
       <div className="carousel" style={{ transform: `rotateY(${currentCard * -72}deg)` }}>
         {cards.map((card, index) => (
           <div
             key={card.id}
             className={`carousel-card ${index === currentCard ? 'active' : ''}`}
             style={{
-              transform: `rotateY(${index * 72}deg) translateZ(250px)`
+              transform: `rotateY(${index * 72}deg) translateZ(250px)`,
+              background: getBackgroundColor(index === 0 ? currentLocation?.main.temp : index === 1 ? paris?.main.temp : index === 2 ? tokyo?.main.temp : index === 3 ? seoul?.main.temp : newYork?.main.temp),
             }}
           >
             {card.content}
-            
           </div>
         ))}
       </div>
-      <button onClick={handlePrev} className="carousel-button prev">Prev</button>
-      <button onClick={handleNext} className="carousel-button next">Next</button>
+      <button onClick={handlePrev} className="carousel-button prev"><span>Prev</span></button>
+      <button onClick={handleNext} className="carousel-button next"><span>Next</span></button>
     </div>
   );
 };

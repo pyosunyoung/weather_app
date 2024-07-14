@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import Logo from './img/logo.png';
-import './Header.css'; // CSS 파일 임포트
+import './Header.css';
 
 const Header = ({ handleCityChange }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {
-    handleCityChange(searchQuery);
+    handleCityChange(searchQuery.toLowerCase());
+    setSearchQuery(''); 
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return (
@@ -18,7 +25,9 @@ const Header = ({ handleCityChange }) => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="Search city..."
+            style={{ color: 'black' }}
           />
           <button onClick={handleSearch}>Search</button>
         </div>

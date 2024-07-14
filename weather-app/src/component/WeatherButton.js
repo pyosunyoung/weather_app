@@ -9,7 +9,7 @@ const WeatherButton = ({ cities, handleCityChange, selectedCity }) => {
         variant={selectedCity === 'current' ? "light" : "outline-light"}
         onClick={() => handleCityChange("current")}
       >
-        Current Location
+        🚩
       </Button>
 
       {cities.map((city) => (
@@ -18,7 +18,7 @@ const WeatherButton = ({ cities, handleCityChange, selectedCity }) => {
           variant={selectedCity === city ? "light" : "outline-light"}
           onClick={() => handleCityChange(city)}
         >
-          {city}
+          {city.charAt(0).toUpperCase() + city.slice(1)}
         </Button>
       ))}
     </div>
